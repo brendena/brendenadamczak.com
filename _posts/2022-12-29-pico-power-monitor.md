@@ -6,7 +6,6 @@ tags: [intro]
 ---
 # Pico Power Monitor
 
-[top side board](/assets/images/powerMonitor/topSidePicoPowerMonitor.jpg)
 
 ## Goal 
 The goal is to be able to measure the power consumption of my house and send that information to [home assistant](https://www.home-assistant.io/) over MQTT where it will be logged.
@@ -46,10 +45,6 @@ Is a external ADC that can communicate over I2C.  This ADC has 4 inputs but ther
 
 ## Layout
 So when it comes to wiring up the board the most important thing comes down to making sure you have a burden resistor across the clamps that need it (so any clamp thats rated in amps).  The next thing to consider is that the ADC can only handle +.3 of the input vcc that you give it.  So if you feed it 3.3 in theory you could only input a voltage of 3.6 to it without damaging it.  So even if you set the ADC to be +-4.096 if the vcc is set to 3.3 you won't be able to get the full range.  Lastly the ADS1115 can have 4 different i2c address based on the "ADDR","ALRT" pins.  So if you need multiple ADS1115 you'll need to properly set them.
-
-[Board Layout](/assets/images/powerMonitor/boardLayoutPicoElectricityMonitor.png)
-
-[real board layout](/assets/images/powerMonitor/bottomSidePicoPowerMonitor.jpg)
 
 
 ## Software for the Pico

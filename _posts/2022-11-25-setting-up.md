@@ -25,4 +25,3 @@ sudo bundler
 # custom domain
 [Page describing](https://dev.to/trentyang/how-to-setup-google-domain-for-github-pages-1p58) how to setup github pages with google domain
 [github pages configuration options](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-records-with-your-dns-provider)
-[custom domain settings](/assets/images/configurationsPersonalWebsite.png)

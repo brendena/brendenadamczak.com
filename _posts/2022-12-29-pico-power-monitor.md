@@ -1,14 +1,17 @@
 ---
 title: Pico Power Monitor
 date: 2022-12-29 12:00:00 0500
-categories: [intro]
-tags: [intro]
+categories: [pico]
+tags: [pico, meter]
 ---
 # Pico Power Monitor
 
+<iframe width="420" height="315" src="https://www.youtube.com/watch?v=TWDl0wm8l34&t=740s" frameborder="0" allowfullscreen></iframe>
 
 ## Goal 
 The goal is to be able to measure the power consumption of my house and send that information to [home assistant](https://www.home-assistant.io/) over MQTT where it will be logged.
+
+![finalDesign](/assets/powerMonitor/topSidePicoPowerMonitor.jpg)
 
 ## pre requisite 
 To get a good general understanding on how a project like this works i would read these articles
@@ -48,3 +51,34 @@ So when it comes to wiring up the board the most important thing comes down to m
 
 
 ## Software for the Pico
+Software can be found [here](https://github.com/brendena/pico_power_monitor).  On the repo it should describe to you how to actually setup the project.
+
+
+## Home assistant
+To log the values from our pico to our home assistant.  We need to have a MQTT broker enabled and then link the sensors data to home assistant.  The way to do this is by editing the config files and adding a mqtt sensor and a template sensor. 
+
+
+```YAML
+mqtt:
+    sensor:
+    -   name: "mainPowerLeft"
+        state_topic: "mainPower/leftMain"
+        unique_id: "leftMain"
+        device_class: "energy"
+        unit_of_measurement: "kWh"
+        value_template: "{{ value | float | round (5) }}"
+        state_class: "total_increasing"
+        last_reset_topic: 'fake/last_reset'
+        last_reset_value_template: "1970-01-01T00:00:00+00:00"
+        
+
+template:
+    sensor:
+    -   name: "mainPowerLeft"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        last_reset: '1970-01-01T00:00:00+00:00'
+
+        
+```

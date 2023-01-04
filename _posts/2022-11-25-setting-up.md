@@ -1,8 +1,8 @@
 ---
 title: Setting up
 date: 2022-11-25 12:00:00 0500
-categories: [intro]
-tags: [intro]
+categories: [blog]
+tags: [blog]
 ---
 
 # Setting up

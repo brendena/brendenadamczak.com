@@ -19,12 +19,12 @@ timezone:
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Chirpy                          # the main title
+title: Brenden's garbage                          # the main title
 
-tagline: A text-focused Jekyll theme   # it will display as the sub-title
+tagline: The rambles of a poorly trained   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
+  Brenden Adamczak personal site.  A site used to showcase personal projects and thoughts.  
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://brendena.github.io'
@@ -32,8 +32,6 @@ url: 'https://brendena.github.io'
 github:
   username: brendena             # change to your github username
 
-twitter:
-  username: twitter_username            # change to your twitter username
 
 social:
   # Change to your full name.
@@ -42,7 +40,6 @@ social:
   email: example@domain.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username      # change to your twitter homepage
     - https://github.com/username       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username

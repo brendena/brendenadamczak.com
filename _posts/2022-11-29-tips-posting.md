@@ -1,9 +1,15 @@
 ---
 title: Tips posting
-date: 2022-12-29 12:00:00 0500
-categories: [intro]
-tags: [intro]
+date: 2022-11-29 12:00:00 0500
+categories: [blog]
+tags: [blog]
 ---
+
+# How posting works
+To test blog posts use this command to run local
+```bash
+bundler exec jekyll s
+```
 
 # extension for visual studio
 * [code spell checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)

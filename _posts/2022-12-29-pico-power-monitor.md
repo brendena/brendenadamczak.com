@@ -17,11 +17,11 @@ tags: [pico, meter]
 </div>
 
 ## Goal 
-The goal is to be able to measure the power consumption of my house and send that information to [home assistant](https://www.home-assistant.io/) over MQTT where it will be logged.
+The goal is to be able to measure the power consumption of my house and send that information to [Home Assistant](https://www.home-assistant.io/) over MQTT where it will be logged.
 
 ![finalDesign](/assets/powerMonitor/topSidePicoPowerMonitor.jpg)
 
-## pre requisite 
+## Pre Requisite 
 To get a good general understanding on how a project like this works i would read these articles
 * [ac-power-intro](https://learn.openenergymonitor.org/electricity-monitoring/ac-power-theory/introduction)
 * [optional video of similar project arduino](https://www.youtube.com/watch?v=TITtBkoaQ_s) 
@@ -47,9 +47,11 @@ These clamps fairly cheap all around but they get the job done.  There 100A and 
 
 Is a external ADC that can communicate over I2C.  This ADC has 4 inputs but there muxed, so at any given time you can only one.  But for this given example this adc has some benefits over most adc's built into microcontrollers.
 
+### Upsides
 * can take differential inputs 
 * 16 bit sensitivity  
-* relatively chips
+* relatively cheap
+* very popular
 
 ### Downsides
 * relatively slow (max 860 samples per second "SPS")
@@ -61,12 +63,25 @@ So when it comes to wiring up the board the most important thing comes down to m
 
 ![layout of the pico](/assets/powerMonitor/bottomSidePicoPowerMonitor.jpg)
 
-## Software for the Pico
+## [Software for the Pico](https://github.com/brendena/pico_power_monitor)
 Software can be found [here](https://github.com/brendena/pico_power_monitor).  On the repo it should describe to you how to actually setup the project.
 
 
-## Home assistant
-To log the values from our pico to our home assistant.  We need to have a MQTT broker enabled and then link the sensors data to home assistant.  The way to do this is by editing the config files and adding a mqtt sensor and a template sensor. 
+## Home Assistant
+
+### Setting up
+
+To get Home Assistant up and running i choice to add it to a [virtual machine](https://www.home-assistant.io/installation/windows/), since it was the easiest way to get it working on my pc while still having the ability to [have add on's](https://www.home-assistant.io/installation/#compare-installation-methods).  If you install Home Assistant with docker you can't install add-ons.  
+
+![Ways to install Home Assistant](/assets/powerMonitor/wayToInstallHomeAssistant.png)
+
+## Home Assistant running Virtual Box
+![virtual box Home Assistant](/assets/powerMonitor/homeAssistantVirtualBox.png)
+
+
+### Configuring sensor
+To log the values from our pico to your Home Assistant.  We need to have a MQTT broker enabled and then [link the sensors data to Home Assistant](https://community.home-assistant.io/t/energy-measurement-with-mqtt-sensor/424558).  The way to do this is by editing the config files and adding a mqtt sensor and a template sensor. 
+
 
 
 ```YAML
@@ -89,7 +104,22 @@ template:
         unit_of_measurement: "kWh"
         device_class: energy
         state_class: total_increasing
-        last_reset: '1970-01-01T00:00:00+00:00'
-
-        
+        last_reset: '1970-01-01T00:00:00+00:00'        
 ```
+
+Important fields
+* device_class: "energy"
+* unit_of_measurement: "kWh" 
+* state_class: "total_increasing" - debated online some say "monitor"
+* last_reset_value_template: "1970-01-01T00:00:00+00:00"
+
+These are what allow you to bind with the energy dashboard.  If its not setup properly this sensor will not show up as a option.
+
+Once you have this you can [add your power to the "energy"](https://youtu.be/W7mVagcssZY?t=253) dashboard.  By going to \[setting\] -> \[Dashboards\] -> \[energy\] -> \[Add Consumption\]
+
+Then after a few hours you'll start to get a graph like this
+
+![Home Assistant energy consumed](/assets/powerMonitor/energyConsumed.png)
+
+
+From here you should be all good.
